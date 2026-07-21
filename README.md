@@ -119,6 +119,30 @@ Inspect any config's parameter count without training:
 muselm info --config configs/moe-small.json
 ```
 
+## Benchmarking
+
+Measure generation throughput and the **active-vs-total parameter ratio** — the
+number that quantifies why MoE is worth it (large total capacity, small active
+compute):
+
+```bash
+muselm benchmark --config configs/moe-small.json
+```
+
+```json
+{
+  "device": "mps",
+  "is_moe": true,
+  "total_params_M": 16.32,
+  "non_embedding_params_M": 15.79,
+  "tokens": 256,
+  "tokens_per_sec": 63.9
+}
+```
+
+Throughput is hardware-dependent; run it on your own machine to compare dense vs.
+MoE configs.
+
 ## How it works
 
 See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for the full walkthrough — the attention math, RoPE, the MoE router and its auxiliary loss, and how the KV cache makes generation `O(1)` per token. See **[docs/ROADMAP.md](docs/ROADMAP.md)** for where this is going (FlashAttention path, distributed training, RLHF/DPO, quantized inference).

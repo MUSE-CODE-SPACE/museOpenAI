@@ -6,6 +6,7 @@ Subcommands:
     muselm train             Train a model from a JSON config
     muselm generate          Sample text from a checkpoint
     muselm info              Print parameter counts for a config
+    muselm benchmark         Measure inference throughput for a config
 """
 
 from __future__ import annotations
@@ -86,6 +87,22 @@ def _cmd_info(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_benchmark(args: argparse.Namespace) -> int:
+    import sys
+    from pathlib import Path as _Path
+
+    sys.path.insert(0, str(_Path(__file__).resolve().parents[1] / "scripts"))
+    from benchmark_inference import benchmark  # noqa: E402
+
+    from muselm.config import TrainConfig, resolve_device
+
+    device = resolve_device(args.device)
+    cfg = TrainConfig.from_json(args.config).model
+    result = benchmark(cfg, args.tokens, args.warmup, device)
+    print(json.dumps(result, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="muselm", description="MuseLM: an open LLM stack")
     sub = p.add_subparsers(dest="command", required=True)
@@ -126,6 +143,13 @@ def build_parser() -> argparse.ArgumentParser:
     i = sub.add_parser("info", help="print model parameter counts")
     i.add_argument("--config", required=True)
     i.set_defaults(func=_cmd_info)
+
+    b = sub.add_parser("benchmark", help="measure inference throughput")
+    b.add_argument("--config", required=True)
+    b.add_argument("--tokens", type=int, default=256)
+    b.add_argument("--warmup", type=int, default=16)
+    b.add_argument("--device", default="auto")
+    b.set_defaults(func=_cmd_benchmark)
 
     return p
 
