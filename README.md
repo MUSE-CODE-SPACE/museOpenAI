@@ -10,6 +10,8 @@ Byte-level BPE tokenizer · Mixture-of-Experts transformer · training loop · K
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 
+**[→ museOpenAI landing page](https://muse-code-space.github.io/museOpenAI/)**
+
 </div>
 
 ---
