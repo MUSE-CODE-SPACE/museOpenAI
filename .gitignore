@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Data & checkpoints (large; regenerate via CLI). Released weights live under
+# checkpoints/release/ and are force-added.
+data/*.txt
+data/tinyshakespeare/*.bin
+data/tinyshakespeare/meta.json
+# Ignore all training runs but keep the released checkpoint. Note: git can't
+# re-include a path under a fully-ignored directory, so we ignore the *contents*
+# of checkpoints/ (checkpoints/*) rather than the directory itself.
+checkpoints/*
+!checkpoints/release/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

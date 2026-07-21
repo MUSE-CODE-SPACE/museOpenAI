@@ -1,0 +1,9 @@
+MuseLM
+Copyright 2026 MUSE
+
+This product includes software developed as an independent, from-scratch
+implementation of modern language-model components. It is licensed under the
+Apache License, Version 2.0 (see LICENSE).
+
+The Tiny-Shakespeare corpus used to train the released demonstration checkpoint
+is in the public domain (the collected works of William Shakespeare).

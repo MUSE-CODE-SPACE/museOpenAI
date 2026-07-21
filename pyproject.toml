@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "muselm"
+version = "0.1.0"
+description = "A fully open, from-scratch LLM stack: byte-BPE tokenizer, Mixture-of-Experts transformer, training loop, and inference engine in plain PyTorch."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.9"
+authors = [{ name = "MUSE", email = "gongyoonkyoung@gmail.com" }]
+keywords = ["llm", "transformer", "mixture-of-experts", "pytorch", "language-model", "moe"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.1",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/MUSE-CODE-SPACE/museOpenAI"
+Repository = "https://github.com/MUSE-CODE-SPACE/museOpenAI"
+Issues = "https://github.com/MUSE-CODE-SPACE/museOpenAI/issues"
+
+[project.scripts]
+muselm = "muselm.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["muselm*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B"]
+ignore = ["E501", "B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
